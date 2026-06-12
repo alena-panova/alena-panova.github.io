@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Июньский портал — три практики для глубокой перезагрузки</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg:      #eaeddb;
+    --bg-card: #f2f5e3;
+    --green:   #7a9455;
+    --gold:    #c5a84b;
+    --amber:   #c47a45;
+    --text:    #2d3220;
+    --mid:     #49521f;
+    --soft:    #6a7444;
+    --border:  #ccd4a0;
+    --sh:      rgba(50,60,20,0.10);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.92;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(150deg, #ccd896 0%, #dde4c4 48%, #eaeddb 100%);
+    padding: 90px 24px 75px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; top:-90px; left:50%; transform:translateX(-50%);
+    width:520px; height:520px;
+    background:radial-gradient(circle, rgba(193,162,65,0.17) 0%, transparent 66%);
+    pointer-events:none;
+  }
+  .sun-emoji {
+    font-size:60px; display:block; margin-bottom:22px;
+    animation: sunpulse 4s ease-in-out infinite;
+  }
+  @keyframes sunpulse {
+    0%,100%{ transform:scale(1);    opacity:.83; }
+    50%    { transform:scale(1.09); opacity:1;   }
+  }
+  .label {
+    font-size:12px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--soft); margin-bottom:20px;
+  }
+  .hero h1 {
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(34px, 6.5vw, 68px);
+    font-weight:300; line-height:1.2;
+    color:var(--text); margin-bottom:22px;
+  }
+  .hero h1 em { font-style:italic; color:var(--amber); }
+  .hero-lead {
+    max-width:570px; margin:0 auto;
+    font-size:18px; color:var(--mid); font-weight:400;
+  }
+
+  /* ── WRAP ── */
+  .wrap { max-width:780px; margin:0 auto; padding:0 24px; }
+  section { padding:64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  h2 {
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(25px, 4vw, 41px);
+    font-weight:300; line-height:1.3;
+    color:var(--text); margin-bottom:24px;
+  }
+  h2 em { font-style:italic; color:var(--amber); }
+
+  p { margin-bottom:18px; color:var(--mid); }
+  strong { color:var(--text); font-weight:700; }
+
+  /* ── ЦИТАТА ── */
+  .quote {
+    border-left: 4px solid var(--gold);
+    background: var(--bg-card);
+    padding: 22px 28px;
+    margin: 30px 0;
+    border-radius: 0 14px 14px 0;
+    font-family:'Cormorant Garamond', serif;
+    font-size:21px; font-style:italic;
+    color:var(--text); line-height:1.65;
+    box-shadow: 0 2px 14px var(--sh);
+  }
+
+  /* ── ГОРМОНЫ ── */
+  .hgrid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+    gap:18px; margin:28px 0;
+  }
+  .hcard {
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px 18px;
+    box-shadow:0 2px 10px var(--sh);
+  }
+  .hcard .hi { font-size:28px; margin-bottom:10px; display:block; }
+  .hcard .ht {
+    font-family:'Cormorant Garamond', serif;
+    font-size:18px; font-weight:600;
+    color:var(--text); margin-bottom:8px;
+  }
+  .hcard p { font-size:14.5px; margin:0; }
+
+  /* ── ПРАКТИКИ ── */
+  .pcard {
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:36px 32px;
+    margin-bottom:34px;
+    box-shadow:0 4px 22px var(--sh);
+    position:relative; overflow:hidden;
+  }
+  .pcard::before {
+    content: attr(data-n);
+    position:absolute; top:-6px; right:18px;
+    font-family:'Cormorant Garamond', serif;
+    font-size:115px; font-weight:300;
+    color:var(--green); opacity:.07;
+    line-height:1; pointer-events:none;
+  }
+  .pbadge {
+    display:inline-block;
+    background:var(--green); color:#fff;
+    font-size:11.5px; letter-spacing:2px; text-transform:uppercase;
+    padding:4px 14px; border-radius:20px; margin-bottom:14px;
+  }
+  .pcard h3 {
+    font-family:'Cormorant Garamond', serif;
+    font-size:28px; font-weight:600;
+    color:var(--text); margin:0 0 8px;
+  }
+  .ptime {
+    font-size:12.5px; color:var(--soft);
+    letter-spacing:1.5px; text-transform:uppercase;
+    margin-bottom:18px;
+  }
+
+  /* ── ДЫХАНИЕ ── */
+  .breath {
+    background:linear-gradient(130deg, #daeaa6, #c9d98b);
+    border-left:5px solid var(--green);
+    border-radius:14px;
+    padding:22px 24px; margin:22px 0;
+  }
+  .breath .bt {
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px; font-weight:600;
+    color:var(--text); margin-bottom:12px;
+  }
+  .blist { list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .blist li {
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:15px; color:var(--text); margin:0;
+  }
+  .blist li .bn {
+    background:var(--green); color:#fff;
+    min-width:22px; height:22px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:11.5px; font-weight:700;
+    flex-shrink:0; margin-top:3px;
+  }
+
+  /* ── ШАГИ ── */
+  .slist { list-style:none; display:flex; flex-direction:column; gap:14px; margin:14px 0; }
+  .slist li {
+    display:flex; align-items:flex-start; gap:14px;
+    font-size:16px; color:var(--mid); margin:0;
+  }
+  .dot { width:9px; height:9px; background:var(--gold); border-radius:50%; flex-shrink:0; margin-top:8px; }
+
+  /* ── ВОСПАЛЕНИЕ ── */
+  .inflam {
+    background: linear-gradient(120deg, #fdf3e0, #f5e8c5);
+    border:1px solid #e0c87a;
+    border-radius:16px;
+    padding:24px 26px; margin:20px 0;
+  }
+  .inflam .it {
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px; font-weight:600;
+    color:var(--amber); margin-bottom:12px;
+  }
+  .inflam ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .inflam ul li {
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:15px; color:var(--mid); margin:0;
+  }
+  .inflam ul li::before {
+    content:'🔸'; flex-shrink:0; margin-top:1px;
+  }
+
+  /* ── СОПРОТИВЛЕНИЕ ── */
+  .rblock {
+    background:linear-gradient(118deg, #f4efda, #ece5bc);
+    border:1px solid var(--gold);
+    border-radius:20px;
+    padding:32px 30px; margin:40px 0;
+    box-shadow:0 3px 16px var(--sh);
+  }
+  .rblock h3 {
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px; color:var(--amber); margin:0 0 14px;
+  }
+
+  /* ── ОТЗЫВЫ ── */
+  .review {
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:26px 28px; margin-bottom:22px;
+    box-shadow:0 2px 12px var(--sh);
+  }
+  .review .rq {
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px; font-style:italic;
+    color:var(--text); line-height:1.65; margin-bottom:12px;
+  }
+  .review .ra {
+    font-size:12.5px; color:var(--soft);
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    background:linear-gradient(132deg, #7a9455, #536c38);
+    color:#fff; border-radius:26px;
+    padding:52px 36px; text-align:center;
+    margin:50px 0;
+    box-shadow:0 8px 34px rgba(65,85,25,0.28);
+  }
+  .cta h2 { color:#fff; font-size:clamp(24px,4vw,40px); margin-bottom:16px; }
+  .cta p  { color:rgba(255,255,255,.88); font-size:18px; }
+  .phrase {
+    display:inline-block; margin-top:28px;
+    background:rgba(255,255,255,.13);
+    border:2px solid rgba(255,255,255,.52);
+    color:#fff;
+    font-family:'Cormorant Garamond', serif;
+    font-size:26px; font-style:italic;
+    padding:14px 42px; border-radius:50px; letter-spacing:1px;
+  }
+  .cta-note { margin-top:16px; font-size:13.5px !important; color:rgba(255,255,255,.6) !important; }
+
+  /* ── TELEGRAM ── */
+  .tg {
+    display:flex; align-items:center; gap:18px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 26px; margin:38px 0;
+    box-shadow:0 2px 12px var(--sh);
+    text-decoration:none; color:inherit;
+    transition:box-shadow .2s;
+  }
+  .tg:hover { box-shadow:0 5px 22px var(--sh); }
+  .tg .ti { font-size:38px; flex-shrink:0; }
+  .tg strong { display:block; font-size:16px; color:var(--text); margin-bottom:4px; }
+  .tg span { font-size:14px; color:var(--soft); }
+
+  /* ── РАЗДЕЛИТЕЛЬ ── */
+  .sep { display:flex; align-items:center; gap:14px; margin:4px 0 24px; }
+  .sep::before,.sep::after { content:''; flex:1; height:1px; background:var(--border); }
+  .sep i { font-size:16px; font-style:normal; }
+
+  /* ── ПОДВАЛ ── */
+  footer { text-align:center; padding:52px 24px; color:var(--soft); font-size:15px; }
+  footer .cont {
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px; font-style:italic;
+    color:var(--amber); margin-bottom:10px;
+  }
+
+  @media(max-width:600px){
+    .pcard { padding:24px 18px; }
+    .cta   { padding:36px 18px; }
+    .hgrid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <span class="sun-emoji">☀️</span>
+  <p class="label">Солнцестояние · Три практики · Научный подход</p>
+  <h1>Природа уже<br><em>приготовила всё за тебя</em></h1>
+  <p class="hero-lead">Есть особый момент в году, когда биология, свет и твоё намерение складываются в одну точку. Я расскажу, как им воспользоваться — конкретно, по шагам, с объяснением того, что происходит внутри.</p>
+</div>
+
+<div class="wrap">
+
+<!-- ══ ВСТУПЛЕНИЕ ══ -->
+<section>
+  <p>Ты наверняка замечала: бывают дни, когда хочется всё изменить. Не завтра — сейчас. Когда тело само тянется к движению, к свежему воздуху, к новому. Это не просто смена настроения. Это отклик организма на конкретные физические изменения, которые происходят вокруг каждый год в одно и то же время.</p>
+
+  <p>Летнее солнцестояние — астрономическое событие, при котором световой день достигает своей наибольшей длины. Солнечное излучение падает на северное полушарие под максимально прямым углом. Это влечёт за собой волну гормональных и клеточных изменений в каждом человеческом теле. И это — наш с тобой биологический козырь.</p>
+
+  <div class="quote">
+    Садовник не заставляет семя расти. Он просто выбирает правильное время, правильную почву — и убирает всё лишнее. Природа делает остальное сама. Именно так работают практики, о которых я расскажу дальше.
+  </div>
+
+  <p>Три великие цивилизации — египетская, славянская и культура майя — существовали на разных континентах, не знали друг о друге, но каждая из них выстраивала свои главные ритуалы обновления именно вокруг этой астрономической точки. Совпадение? Или многовековое наблюдение за тем, что действительно работает?</p>
+
+  <p>Сегодня у нас есть то, чего не было у них — язык биохимии и нейробиологии. И он объясняет всё, что они чувствовали интуитивно.</p>
+</section>
+
+<!-- ══ НАУКА ══ -->
+<section>
+  <h2>Что происходит<br><em>внутри тебя прямо сейчас</em></h2>
+  <div class="sep"><i>✦</i></div>
+
+  <p>Твоё тело — невероятно чуткий инструмент. Оно улавливает длину светового дня, угол падения солнечных лучей, температуру воздуха на рассвете. И реагирует на всё это цепочкой химических изменений. Давай разберём главные из них.</p>
+
+  <div class="hgrid">
+    <div class="hcard">
+      <span class="hi">🌿</span>
+      <div class="ht">Серотонин</div>
+      <p>Его синтез напрямую связан с количеством дневного света. Чем дольше световой день — тем выше его концентрация. Это не субъективное ощущение лёгкости, а измеримый биохимический показатель, который достигает своего годового максимума именно летом.</p>
+    </div>
+    <div class="hcard">
+      <span class="hi">🌙</span>
+      <div class="ht">Мелатонин</div>
+      <p>Короткая летняя ночь вынуждает организм концентрировать весь восстановительный ресурс в узком временном окне. Качество клеточного восстановления при этом возрастает — тело работает точечно, интенсивно, без размытия.</p>
+    </div>
+    <div class="hcard">
+      <span class="hi">⚡</span>
+      <div class="ht">Кортизол</div>
+      <p>Ранний яркий рассвет выстраивает его естественный суточный ритм: пик энергии утром, плавное снижение к вечеру. Это и есть идеальная работа гормона — двигатель, а не источник истощения.</p>
+    </div>
+    <div class="hcard">
+      <span class="hi">🧬</span>
+      <div class="ht">Витамин D и гены</div>
+      <p>Ультрафиолетовое излучение запускает синтез витамина D — по сути стероидного гормона, который проникает в ядро каждой клетки и управляет активностью более тысячи генов. Летом тело способно синтезировать его максимальное годовое количество.</p>
+    </div>
+  </div>
+
+  <p>Всё это — биологический фундамент, который природа уже подготовила. Но он остаётся просто фундаментом, если ты не добавляешь к нему осознанное намерение и конкретные действия. Именно здесь в игру вступают три практики, о которых я хочу рассказать.</p>
+</section>
+
+<!-- ══ ПРАКТИКИ ══ -->
+<section>
+  <h2>Три практики:<br><em>система, которая работает как одно целое</em></h2>
+  <div class="sep"><i>✦</i></div>
+
+  <p>Утренняя практика пробуждает тело. Питание поддерживает процесс обновления. Вечерняя практика закрепляет всё накопленное за день. Это не три отдельных совета — это единая цепочка. Разорви её в одном месте — и звенья рассыпаются.</p>
+
+  <!-- ── ПРАКТИКА 1 ── -->
+  <div class="pcard" data-n="1">
+    <span class="pbadge">Практика первая</span>
+    <h3>🌅 Встреча с утренним светом</h3>
+    <div class="ptime">⏱ 30 минут · каждое утро · без телефона</div>
+
+    <p>Сразу после пробуждения, до кофе и до экранов, выйди на улицу. Встань так, чтобы лицо и открытые руки смотрели в сторону восходящего солнца. Не нужно смотреть прямо в него — достаточно просто находиться в его свете.</p>
+
+    <p>В первые часы после рассвета солнечный спектр богат красным и ближним инфракрасным излучением. Именно оно активирует митохондрии — энергетические центры каждой клетки — и настраивает биологические часы организма. Весь последующий день буквально начинается с этого сигнала.</p>
+
+    <div class="breath">
+      <div class="bt">🌬️ Как дышать во время утренней практики</div>
+      <ul class="blist">
+        <li><span class="bn">1</span><span>Встань удобно. Вдох через нос — медленно, считая до четырёх. Не торопись, грудная клетка расширяется мягко.</span></li>
+        <li><span class="bn">2</span><span>Пауза — два счёта. Тело в тишине.</span></li>
+        <li><span class="bn">3</span><span>Выдох через нос или слегка приоткрытый рот — на шесть-семь счётов. Выдох всегда длиннее вдоха.</span></li>
+        <li><span class="bn">4</span><span>На каждом вдохе представляй: тепло входит сквозь кожу, наполняет грудь, живот, руки до самых кончиков пальцев.</span></li>
+        <li><span class="bn">5</span><span>На каждом выдохе — отпускаешь. Ночное напряжение, тяжёлые мысли, всё, что не твоё. Просто выдыхаешь это наружу.</span></li>
+        <li><span class="bn">6</span><span>Продолжай в этом ритме всё время, пока стоишь. Не нужно считать дыхания — просто оставайся в нём.</span></li>
+      </ul>
+    </div>
+
+    <p>Такое дыхание на свежем воздухе под утренним светом реально повышает насыщение крови кислородом, снижает уровень кортизола и стимулирует серотонин — три процесса одновременно, за одну утреннюю практику.</p>
+
+    <p><strong>Одно намерение в начале.</strong> Прежде чем начать дышать — произнеси внутри или вслух одну чёткую фразу. Не список желаний, не молитва. Одно намерение: кем хочешь быть сегодня, что хочешь создать, как хочешь себя чувствовать. Это активирует зону мозга, отвечающую за осознанные решения, и задаёт внутренний фильтр на весь день.</p>
+  </div>
+
+  <!-- ── ПРАКТИКА 2 ── -->
+  <div class="pcard" data-n="2">
+    <span class="pbadge">Практика вторая</span>
+    <h3>🌿 Питание как союзник обновления</h3>
+    <div class="ptime">🥗 Три шага · без фанатизма · каждый день</div>
+
+    <p>Это не диета. Это не список запретов. Это три небольших, но очень конкретных действия, которые помогают телу делать то, что оно и без нас пытается делать в этот период — очищаться и обновляться на клеточном уровне.</p>
+
+    <ul class="slist">
+      <li>
+        <span class="dot"></span>
+        <span><strong>Тёплая вода натощак.</strong> Каждое утро до завтрака — стакан тёплой воды с долькой лимона и щепоткой морской соли. Это мягкий, но эффективный способ запустить лимфатическую систему — главный дренаж организма, который выводит всё отработанное. Когда клеточное обновление идёт активно, эта система нуждается в поддержке особенно сильно.</span>
+      </li>
+      <li>
+        <span class="dot"></span>
+        <span><strong>Живая зелень ежедневно.</strong> Руккола, шпинат, петрушка, кинза — в любом виде, в любом блюде. Хлорофилл, который даёт им насыщенный цвет, по молекулярной структуре удивительно близок к гемоглобину крови: разница лишь в одном атоме в центре молекулы. Летом зелень живая, только с грядки или прилавка — её очищающие свойства в этот период особенно сильны.</span>
+      </li>
+      <li>
+        <span class="dot"></span>
+        <span><strong>Убери один провокатор воспаления.</strong> Хроническое воспаление — это тихая война внутри тела, которую мы часто не замечаем, пока она не даёт о себе знать усталостью, туманом в голове или болью. У каждой из нас есть свой триггер. Определи свой и убери его на этот период.</span>
+      </li>
+    </ul>
+
+    <div class="inflam">
+      <div class="it">🔥 Что чаще всего поддерживает воспаление</div>
+      <ul>
+        <li>Рафинированный сахар и все продукты, где он спрятан под другими названиями — сироп, декстроза, фруктоза</li>
+        <li>Глютен — клейковина, содержащаяся в пшенице, ржи и ячмене. Для чувствительных к нему людей это один из главных провокаторов системного воспаления и кишечной проницаемости</li>
+        <li>Молочные продукты промышленного производства — особенно пастеризованные, с казеином А1, который у многих вызывает воспалительную реакцию в кишечнике</li>
+        <li>Алкоголь — напрямую нарушает восстановление клеток и нагружает печень именно тогда, когда телу нужны все ресурсы для обновления</li>
+        <li>Растительные масла с высоким содержанием омега-6 в обработанном виде: подсолнечное, кукурузное, соевое</li>
+      </ul>
+    </div>
+
+    <div class="breath">
+      <div class="bt">🌬️ Три вдоха перед едой — маленький ритуал с большим эффектом</div>
+      <ul class="blist">
+        <li><span class="bn">1</span><span>Прежде чем взять первый кусочек — остановись на несколько секунд.</span></li>
+        <li><span class="bn">2</span><span>Три медленных вдоха через нос, три выдоха через рот. Плечи опускаются, челюсть расслабляется.</span></li>
+        <li><span class="bn">3</span><span>Это переводит нервную систему из режима «действие» в режим «восстановление». В этом состоянии пищеварение работает несравнимо эффективнее — тело усваивает питательное и легко отпускает всё лишнее.</span></li>
+      </ul>
+    </div>
+
+    <div class="quote" style="font-size:18px; margin-top:22px;">
+      Убрать помехи — это тоже действие. Иногда самое мощное.
+    </div>
+  </div>
+
+  <!-- ── ПРАКТИКА 3 ── -->
+  <div class="pcard" data-n="3">
+    <span class="pbadge">Практика третья</span>
+    <h3>🕯️ Вечернее погружение внутрь</h3>
+    <div class="ptime">⏱ 15 минут · за час до сна · экраны выключены</div>
+
+    <p>За час до того, как лечь, — найди тихое место. Ляг или сядь, как удобно. Убери все экраны — не потому что «так надо», а потому что синий свет от них буквально блокирует запуск ночного восстановления. Это физиология, не мода.</p>
+
+    <div class="breath">
+      <div class="bt">🌬️ Дыхание и сканирование тела</div>
+      <ul class="blist">
+        <li><span class="bn">1</span><span>Закрой глаза. Три глубоких вдоха через нос — выдоха через приоткрытый рот с тихим звуком «хааа». Это даёт телу разрешение отпустить напряжение дня.</span></li>
+        <li><span class="bn">2</span><span>Переходи на ровное успокаивающее дыхание: вдох четыре счёта — выдох шесть-восемь счётов. Чем длиннее выдох, тем глубже расслабление.</span></li>
+        <li><span class="bn">3</span><span>Медленно пройди вниманием по всему телу — от макушки до стоп. Ничего не исправляй, не оценивай. Просто замечай: где тепло, где холод, где что-то сжато, где пульсирует или давит.</span></li>
+        <li><span class="bn">4</span><span>Там, где чувствуешь напряжение — направь туда следующий вдох. Представь, как воздух входит именно в это место. На выдохе — отпусти. Напряжение уходит с дыханием.</span></li>
+        <li><span class="bn">5</span><span>Когда тело стало мягким и тяжёлым — скажи себе внутри одну фразу на завтра. Какой хочешь проснуться? Что важно ощутить завтра утром?</span></li>
+      </ul>
+    </div>
+
+    <p>Мозг в состоянии лёгкой дремоты начинает генерировать тета-волны. В этот момент он принимает установки с необычной глубиной — именно поэтому то, что ты говоришь себе перед сном, имеет такой вес. Это не самовнушение. Это нейробиология.</p>
+
+    <p>Без этой практики первые две теряют значительную часть своего потенциала. Утро открывает. Вечер закрепляет. Одно без другого — незавершённый цикл.</p>
+  </div>
+</section>
+
+<!-- ══ СОПРОТИВЛЕНИЕ ══ -->
+<section>
+  <div class="rblock">
+    <h3>⚡ То, о чём почти никогда не предупреждают</h3>
+    <p>Примерно на третий-четвёртый день у большинства людей появляется внутреннее торможение. Вдруг нет желания вставать раньше. Вдруг кажется, что всё это преувеличено. Вдруг появляются срочные дела.</p>
+    <p><strong>Это не сигнал остановиться. Это сигнал, что изменение началось.</strong></p>
+    <p>Организм воспринимает любое отклонение от привычного уклада как угрозу — даже если это отклонение в сторону здоровья. Система сопротивляется. Это биологический защитный механизм, а не слабость характера. И об этом практически никто не говорит вслух.</p>
+    <p>Одно правило для таких дней: <strong>не выносить никаких вердиктов.</strong> Не оценивать, не анализировать, не решать, продолжать или нет. Просто выйти утром. Просто выпить воду. Просто лечь и закрыть глаза на пятнадцать минут. Без энтузиазма, механически — этого достаточно.</p>
+    <p>На пятый-шестой день что-то меняется. То, что давалось усилием, становится естественным. Тело принимает новый уклад как свой. И привычка, созданная в период максимального светового дня, держится заметно дольше, чем та, что заложена в любое другое время года.</p>
+  </div>
+</section>
+
+<!-- ══ ИСТОРИИ ══ -->
+<section>
+  <h2>Живые истории:<br><em>не статистика, а опыт</em></h2>
+  <div class="sep"><i>✦</i></div>
+
+  <div class="review">
+    <div class="rq">«Я начала без какой-либо веры в результат — просто как эксперимент над собой. Примерно через неделю обнаружила, что засыпаю иначе. Что утром нет привычной тяжести в груди. Что смотрю на близких и снова чувствую тепло, а не только усталость. Это было так неожиданно просто.»</div>
+    <div class="ra">Наталья, 38 лет · повторяет практику каждый июнь</div>
+  </div>
+
+  <div class="review">
+    <div class="rq">«Я искал способ быстрее восстанавливаться после физических нагрузок. Наткнулся на информацию о влиянии утреннего света на гормональный фон — и решил проверить. Через несколько недель поймал себя на мысли: я сейчас в лучшей форме, чем семь лет назад. Не могу назвать одну причину, но отрицать результат невозможно.»</div>
+    <div class="ra">Олег, 43 года · пришёл через спорт, остался ради осознанности</div>
+  </div>
+
+  <p>Ни Наталья, ни Олег не совершали ничего грандиозного. Они не меняли работу, не переезжали, не тратили больших денег. Они просто <strong>воспользовались нужным моментом с намерением.</strong> Этого оказалось достаточно.</p>
+
+  <p>Скорее всего, прошлый год в это время ты провела как обычно — без какого-то особого акцента. И это нормально: нас с детства учат планировать по рабочим срокам, по учебным четвертям, по праздникам в календаре. Но никто не учит замечать самый древний и мощный природный цикл — движение Земли вокруг Солнца и то, как оно влияет на каждую клетку нашего тела.</p>
+</section>
+
+<!-- ══ CTA ══ -->
+<div class="cta">
+  <h2>Ты уже сделала<br>первый шаг.</h2>
+  <p>Дочитать до этого места — это не случайность. Что-то внутри тебя давно ждало этого разговора. Доверься этому.</p>
+  <p style="margin-top:12px;">Если ты готова — скажи себе прямо сейчас, вслух или внутри:</p>
+  <div class="phrase">✨ Я открываюсь новому</div>
+  <p class="cta-note">Когда ты произносишь намерение — оно перестаёт быть мыслью и становится внутренней точкой опоры.</p>
+</div>
+
+<!-- ══ TELEGRAM ══ -->
+<a class="tg" href="https://t.me/bereginya_dushi" target="_blank">
+  <span class="ti">✈️</span>
+  <div>
+    <strong>Продолжение — в Telegram</strong>
+    <span>Практики, напоминания и поддержка рядом с тобой каждый день</span>
+  </div>
+</a>
+
+</div>
+
+<!-- ══ ПОДВАЛ ══ -->
+<footer>
+  <div class="cont">Продолжение следует…</div>
+  <p>Открыть в себе новое — это только первая половина пути.<br>
+  Следующая часть — о том, как удержать это в обычной жизни:<br>
+  в будни с дедлайнами, в вечера с усталостью, в дни, когда ничего не хочется.<br>
+  Именно там и рождается настоящее изменение.</p>
+</footer>
+
+</body>
+</html>
